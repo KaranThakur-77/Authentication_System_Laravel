@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Cache\RedisTagSet;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,7 +25,7 @@ class RegisterController extends Controller
             $user = new User();
             $user->name=$request->username;
             $user->email=$request->email;
-            $user->password=md5($request->password);
+            $user->password= Hash::make($request->password);
             $user->role='user';
             $user->save();
 

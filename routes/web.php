@@ -1,14 +1,15 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\admin\adminController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/',function(){
-    return view('welcome');
-});
+// Route::get("/", function (){
+//     return view("login");
+// });
 Route::group(['prefix' => 'account'], function(){
     
     // Middleware for guest users.
@@ -28,3 +29,7 @@ Route::group(['prefix' => 'account'], function(){
         });
 });
 
+Route::get('/admin/login',[adminController::class,'index'])->name('admin.login');
+Route::post('/admin/authenticate',[adminController::class,'authenticate'])->name('admiauthenticaten.');
+Route::get('admin/dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
+Route::get('admin/logout',[adminController::class,'logout'])->name('admin.logout');

@@ -22,7 +22,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="/account/authenticate" method="POST">
+                            <form action="/admin/authenticate" method="POST">
                                 @csrf
                                 @if(session('success'))
                                 <div class="alert alert-success d-flex justify-content-center">
