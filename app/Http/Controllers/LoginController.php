@@ -20,13 +20,16 @@ class LoginController extends Controller
 
 
         if ($validator->passes()) {
-            if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])) {
-                return redirect()->route('account.dashboard');
+            if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                if (Auth::guard('web')->user()->role != 'user') {
+                    Auth::guard('web')->logout();
+                    return redirect()->route('account.login')->with('error', 'You are not an user.');
+                }
+                
+                return redirect()->route('account.dashboard'); // Ensure this route exists
             } else {
-                return redirect()->route('account.login')->with('invalid','Either email or password is invalid');
+                return redirect()->route('account.login')->with('invalid', 'Either email or password is invalid');
             }
-            
-
         }else{
             return redirect()->route('account.login')->withInput()->withErrors($validator);
         }
