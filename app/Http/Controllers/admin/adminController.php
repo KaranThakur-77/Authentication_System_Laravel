@@ -23,7 +23,7 @@ class adminController extends Controller
             if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
                 if (Auth::guard('admin')->user()->role != 'admin') {
                     Auth::guard('admin')->logout();
-                    return redirect()->route('admin.login')->with('error', 'You are not an admin.');
+                    return redirect()->route('admin.login')->with('error', 'Sorry!, You are not an admin.');
                 }
                 
                 return redirect()->route('admin.dashboard'); // Ensure this route exists
